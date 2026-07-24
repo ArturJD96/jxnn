@@ -13,7 +13,7 @@
       "properties": {
         "$schema": {
           "title": "JXNN JSON Schema",
-          "description": "A reference to this schema.",
+          "description": "A reference to JSON schema of JXNN.",
           "const": "https://raw.githubusercontent.com/ArturJD96/jxnn/refs/heads/main/schemas/jxnn.schema.json"
         },
         "?origin": {
@@ -49,8 +49,14 @@
       "description": "JXNN representation of an XML Element Node ('structured content')",
       "type": "object",
       "properties": {
-        "?tag": { "type": "string" },
+        "?tag": {
+          "title": "XML Element Name.",
+          "description": "Complete name of the XML element ('tag').",
+          "type": "string"
+        },
         "?children": {
+          "title": "XML children elements",
+          "description": "Representing XML children as an array.",
           "type": "array",
           "items": {
             "$ref": "#/$defs/Node"
