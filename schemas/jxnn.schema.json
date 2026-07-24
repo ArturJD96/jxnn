@@ -14,7 +14,7 @@
         "$schema": {
           "title": "JXNN JSON Schema",
           "description": "A reference to this schema.",
-          "const": "./jxnn.schema.json"
+          "const": "https://raw.githubusercontent.com/ArturJD96/jxnn/refs/heads/main/schemas/jxnn.schema.json"
         },
         "?origin": {
           "title": "Origin XML node",
