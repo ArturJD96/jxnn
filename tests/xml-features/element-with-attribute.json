@@ -1,0 +1,6 @@
+{
+  "$schema": "./../../schemas/jxnn.schema.json",
+  "?origin": "<elem attr=\"val\"/>",
+  "?tag": "elem",
+  "@attr": "val"
+}

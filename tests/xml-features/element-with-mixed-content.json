@@ -1,0 +1,21 @@
+{
+  "$schema": "./../../schemas/jxnn.schema.json",
+  "?origin": "<elem>Sample <b>bolded</b> text.</elem>",
+  "?tag": "elem",
+  "?children": [
+    {
+      "?text": "Sample text "
+    },
+    {
+      "?tag": "b",
+      "?children": [
+        {
+          "?text": "bolded"
+        }
+      ]
+    },
+    {
+      "?text": " text."
+    }
+  ]
+}

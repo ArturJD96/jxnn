@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<?xml-stylesheet type="text/xsl" href="style.xsl"?>
+
+<!DOCTYPE document [
+    <!ELEMENT document ANY>
+    <!ENTITY company "OpenAI">
+    <!ENTITY copyright "&#169;">
+]>
+
+<!-- this document was generated with ChatGPT: https://chatgpt.com/share/6a638432-bee8-83eb-9623-a4a22f823065 -->
+<!-- TO DO: use official "XML conformance-test suite".-->
+
+<document
+    xmlns="http://example.com/default"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ex="http://example.com/example"
+    xml:lang="en"
+    xml:space="preserve"
+    id="doc001"
+    version="1.0"
+    xsi:schemaLocation="http://example.com/default schema.xsd">
+
+    <!-- This is an XML comment -->
+
+    <title>XML Syntax Demonstration</title>
+
+    <metadata created="2026-07-24" author="John Doe">
+        <description>This document demonstrates XML syntax.</description>
+        <publisher>&company;</publisher>
+        <symbol>&copyright;</symbol>
+    </metadata>
+
+    <content>
+
+        <paragraph priority="high">
+            XML supports nested
+            <bold>true</bold>
+            elements.
+        </paragraph>
+
+        <mixedContent>
+            Here is some text
+            <emphasis>mixed</emphasis>
+            with child elements.
+        </mixedContent>
+
+        <escapedCharacters>
+            &lt;tag&gt;
+            &amp;
+            &quot;quotes&quot;
+            &apos;apostrophes&apos;
+        </escapedCharacters>
+
+        <characterReferences>
+            Unicode: &#9731; &#x1F600;
+        </characterReferences>
+
+        <cdataSection><![CDATA[
+            <this is="not parsed">
+                & < > " '
+            </this>
+        ]]></cdataSection>
+
+        <emptyElement />
+
+        <ex:customElement ex:type="example" ex:id="42">
+            Namespaced element
+        </ex:customElement>
+
+        <?processing instruction-data?>
+
+    </content>
+
+</document>

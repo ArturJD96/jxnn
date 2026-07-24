@@ -1,0 +1,10 @@
+{
+  "$schema": "./../../schemas/jxnn.schema.json",
+  "?origin": "<elem><child/></elem>",
+  "?tag": "elem",
+  "?children": [
+    {
+      "?tag": "child"
+    }
+  ]
+}

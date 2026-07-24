@@ -1,0 +1,10 @@
+{
+  "$schema": "./../../schemas/jxnn.schema.json",
+  "?origin": "<elem>Sample text</elem>",
+  "?tag": "elem",
+  "?children": [
+    {
+      "?text": "Sample text"
+    }
+  ]
+}
