@@ -54,7 +54,7 @@
           "description": "Complete name of the XML element ('tag').",
           "type": "string"
         },
-        "?children": {
+        "?*": {
           "title": "XML children elements",
           "description": "Representing XML children as an array.",
           "type": "array",

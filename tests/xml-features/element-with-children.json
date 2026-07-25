@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/ArturJD96/jxnn/refs/heads/main/schemas/jxnn.schema.json",
   "?origin": "<elem><child/></elem>",
   "?tag": "elem",
-  "?children": [
+  "?*": [
     {
       "?tag": "child"
     }
