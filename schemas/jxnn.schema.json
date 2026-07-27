@@ -1,88 +1,99 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "jxnn.schema.json",
-  "$ref": "#/$defs/Node",
+  "$ref": "#/$defs/nodes/Node",
   "title": "Json/XML Node Notation",
   "description": "This schema describes JXNN – a JSON encoding of XML's data shape.",
   "$defs": {
-
-    "JXNN": {
-      "title": "Base JXNN schema representation of XML element node.",
-      "description": "JXNN schema allows for three kinds of properties: JSON-specific (starting with '$'), xml-specific (starting with '$') xml attributes (starting with '@').",
-      "type": "object",
-      "properties": {
-        "$schema": {
-          "title": "JXNN JSON Schema",
-          "description": "A reference to JSON schema of JXNN.",
-          "const": "https://raw.githubusercontent.com/ArturJD96/jxnn/refs/heads/main/schemas/jxnn.schema.json"
-        },
-        "?origin": {
-          "title": "Origin XML node",
-          "description": "A stringified copy of the XML from which the JXNN was derived. May be used for debugging purposes.",
-          "examples": ["<elem attr=\"value\">Text <b>content</b>.</p>"],
-          "type": "string",
-          "contentMediaType": "application/xml"
+    "fields": {
+      "json-schema": {
+        "title": "JXNN JSON Schema",
+        "description": "A reference to JSON schema of JXNN.",
+        "const": "https://raw.githubusercontent.com/ArturJD96/jxnn/refs/heads/main/schemas/jxnn.schema.json"
+      },
+      "xml-origin": {
+        "title": "Origin XML node",
+        "description": "A stringified copy of the XML from which the JXNN was derived. May be used for debugging purposes.",
+        "examples": ["<elem attr=\"value\">Text <b>content</b>.</p>"],
+        "type": "string",
+        "contentMediaType": "application/xml"
+      },
+      "attr": {
+        "title": "XML Attribute Node",
+        "description": "An XML attribute. The value must be always a string.",
+        "$comment": "We allow only string values because JXNN represents data from the perspective of XML, not JSON. If conversion from JSON to XML using JXNN happens, all nummeric values must be stringified.",
+        "type": "string"
+      },
+      "xml-tag": {
+        "title": "XML Element Name.",
+        "description": "Complete name of the XML element ('tag').",
+        "examples": ["elem", "?xml-processing-instruction"],
+        "type": "string"
+      },
+      "xml-children": {
+        "title": "XML children elements",
+        "description": "Representing XML children as an array.",
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/nodes/Node"
         }
       },
-      "patternProperties": {
-        "@.+": {
-          "title": "XML Attribute Node",
-          "description": "An XML attribute. The value must be always a string.",
-          "$comment": "We allow only string values because JXNN represents data from the perspective of XML, not JSON. If conversion from JSON to XML using JXNN happens, all nummeric values must be stringified.",
-          "type": "string"
-        }
+      "xml-text": {
+        "title": "XML text content",
+        "description": "Content of XML text.",
+        "examples": ["Some text", "A text that is before a tag ", " or after a tag (note spaces!)"],
+        "type": "string"
       }
     },
-
-    "TextNode": {
-      "title": "Text Node",
-      "description": "JXNN representation of an XML Text Node ('unstructured content')",
-      "type": "object",
-      "properties": {
-        "?text": { "type": "string" }
-      },
-      "required": ["?text"]
-    },
-
-    "ElementNode": {
-      "title": "Element Node",
-      "description": "JXNN representation of an XML Element Node ('structured content')",
-      "type": "object",
-      "properties": {
-        "?tag": {
-          "title": "XML Element Name.",
-          "description": "Complete name of the XML element ('tag').",
-          "type": "string"
+    "nodes": {
+      "JXNN": {
+        "title": "Base JXNN schema representation of XML element node.",
+        "description": "JXNN schema allows for three kinds of properties: JSON-specific (starting with '$'), xml-specific (starting with '$') xml attributes (starting with '@').",
+        "type": "object",
+        "properties": {
+          "$schema": { "$ref": "#/$defs/fields/json-schema" },
+          "?origin": { "$ref": "#/$defs/fields/xml-origin" }
         },
-        "?*": {
-          "title": "XML children elements",
-          "description": "Representing XML children as an array.",
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/Node"
+        "patternProperties": {
+          "@.+": { "$ref": "#/$defs/fields/attr" }
+        }
+      },
+      "TextNode": {
+        "title": "Text Node",
+        "description": "JXNN representation of an XML Text Node ('unstructured content')",
+        "type": "object",
+        "properties": {
+          "?text": { "$ref": "#/$defs/fields/xml-text" }
+        },
+        "required": ["?text"]
+      },
+      "ElementNode": {
+        "title": "Element Node",
+        "description": "JXNN representation of an XML Element Node ('structured content')",
+        "type": "object",
+        "properties": {
+          "?tag": { "$ref": "#/$defs/fields/xml-tag" },
+          "?*": { "$ref": "#/$defs/fields/xml-children" }
+        },
+        "required": ["?tag"]
+      },
+      "Node": {
+        "title": "Node",
+        "description": "JXNN representation of an XML Node.",
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/$defs/nodes/JXNN"
+          },
+          {
+            "oneOf": [
+              { "$ref": "#/$defs/nodes/TextNode" },
+              { "$ref": "#/$defs/nodes/ElementNode" }
+            ]
           }
-        }
-      },
-      "required": ["?tag"]
-    },
-
-    "Node": {
-      "title": "Node",
-      "description": "JXNN representation of an XML Node.",
-      "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/$defs/JXNN"
-        },
-        {
-          "oneOf": [
-            { "$ref": "#/$defs/TextNode" },
-            { "$ref": "#/$defs/ElementNode" }
-          ]
-        }
-      ],
-      "unevaluatedProperties": false
+        ],
+        "unevaluatedProperties": false
+      }
     }
-
   }
 }
